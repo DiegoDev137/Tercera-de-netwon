@@ -1,0 +1,82 @@
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif;font-size:16px}
+body,html{overflow:hidden;background:#000}
+ul{list-style-type:none}
+button{cursor:pointer;border:none;background:initial}
+a{text-decoration:none}
+.hidden{display:none!important}
+.search-button,.searchbox{display:flex;align-items:center}
+.container{max-width:768px;width:100%;margin:0 auto;padding:0 20px}
+.experience{position:fixed;width:100vw;height:100vh}
+
+/* index.css - Asegúrate de que esta es la versión final */
+
+/* Regla Unificada para Todos los Elementos Orbitantes (Texto o Imagen) */
+.orbit-item {
+  /* Posicionamiento y Animación */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  animation: orbit-horizontal var(--orbit-duration) linear infinite;
+  
+  /* Asegura que el elemento base no tenga un tamaño excesivo si es texto */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.content{
+    position:absolute;
+    z-index:1;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    
+    /* === MODIFICACIONES CLAVE PARA 3D === */
+    /* 1. Define la profundidad de la escena 3D */
+    perspective: 800px;
+    /* 2. Inclina el plano de órbita 70 grados (Ajusta este valor: 60deg a 80deg es común) */
+    transform: translate(-50%,-50%) rotateX(70deg); 
+    /* 3. Asegura que los hijos (los .orbit-item) mantengan sus transformaciones 3D */
+    transform-style: preserve-3d;
+    /* ==================================== */
+}
+/* Estilos para el TEXTO Orbitante */
+.orbit-item.text-content {
+  color: white;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+/* Estilos para IMÁGENES Orbitantes */
+.orbit-item img {
+  display: block;
+  /* Proporción de píxeles 'linda' - Ajusta la altura si es necesario */
+  height: 80px; /* Tamaño un poco más grande para visibilidad. AJUSTA ESTE VALOR. */
+  width: auto;
+  object-fit: contain;
+}
+
+/* Keyframes de la órbita (queda igual) */
+@keyframes orbit-horizontal {
+  0% {
+    /* rotate(0deg) es la rotación alrededor del centro, 
+       translate() es el radio, 
+       rotate(0deg) mantiene el elemento siempre mirando hacia el centro/adelante. */
+    transform: translate(-50%, -50%) rotate(0deg) translate(var(--orbit-radius)) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg) translate(var(--orbit-radius)) rotate(-360deg); /* El -360deg corrige la rotación del elemento */
+  }
+}
+.searchbox{overflow:hidden;width:576px;height:56px;background:rgba(60,60,60,.5);backdrop-filter:blur(32px);padding:6px;margin:0 auto 32px;border-radius:100px;transition:background-color .1s ease-in-out}
+.searchbox:focus-within{background:rgba(60,60,60,.7)}
+.searchbox-icon{width:44px;height:44px;padding:4px}
+.search-button,.search-input{line-height:1;height:100%;border:none;outline:0;color:#fff}
+.search-input{width:100%;background:0 0;padding:0 16px 0 2px}
+.search-input::placeholder{color:#fff;opacity:.7}
+.search-button{justify-content:center;flex-shrink:0;width:112px;background:rgba(0,0,0,.2);backdrop-filter:blur(24px);border-radius:100px;transition:background-color .2s ease-in-out}
+.search-

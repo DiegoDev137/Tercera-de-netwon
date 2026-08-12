@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon -->
+    <link
+      sizes="128x128"
+      rel="apple-touch-icon"
+      href="./public/favicon/main-128x128.png"
+    />
+    <link
+      rel="icon"
+      sizes="128x128"
+      type="image/png"
+      href="./public/favicon/main-128x128.png"
+    />
+    <link
+      rel="icon"
+      sizes="64x64"
+      type="image/png"
+      href="./public/favicon/main-64x64.png"
+    />
+    <link rel="manifest" href="./public/site.webmanifest.json" />
+
+    <!-- Título -->
+    <title>Espacio Virtual para mi Novia</title>
+
+    <!-- Fuente de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="./src/styles/minimalize/normalize.css" />
+    <link rel="stylesheet" href="./src/styles/minimalize/fonts.css" />
+    <link rel="stylesheet" href="./src/styles/minimalize/index.css" />
+    <link rel="stylesheet" href="./src/styles/minimalize/style.css" />
+
+    <!-- Three.js (necesario para black-hole.js) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  </head>
+
+  <body style="background-color: black">
+    <!-- Agujero Negro -->
+    <div class="experience"></div>
+
+    <!-- Scripts -->
+  <script src="./src/scripts/minimalize/black-hole.js"></script>
+    <script>
+      // Script adicional para texto/imágenes orbitantes
+      function addOrbitingText() {
+        // ACTUALIZA ESTE ARREGLO CON LAS RUTAS REALES DE TUS IMÁGENES
+        const items = [
+          { type: 'text', content: 'Amor meus astralis' },
+          { type: 'text', content: 'Tu amor curva el espacio de mi realidad' },
+          { type: 'text', content: 'Por cada acción de amor, hay una reacción igual...' },
+          { type: 'image', content: 'https://i.pinimg.com/1200x/03/99/55/0399551eb0365c7b1347cf45699a67cd.jpg' },
+          { type: 'text', content: 'Eres mi Universo' },
+          { type: 'text', content: 'Para Siempre' },
+          { type: 'image', content: 'https://i.pinimg.com/1200x/08/5f/c1/085fc122b0680157d7313769be5cdfd5.jpg' },
+          { type: 'text', content: 'el amor de mi vida?' },
+          { type: 'text', content: 'Siempre Juntos' },
+          { type: 'image', content: 'https://i.pinimg.com/1200x/e1/f6/ea/e1f6eab1f04dcb9345fdffd1f2aa9bc0.jpg' },
+          { type: 'image', content: 'https://i.pinimg.com/736x/04/30/8e/04308ef297914edc1af11a2ce37b1aaa.jpg' },
+          { type: 'image', content: 'https://i.pinimg.com/736x/bf/5e/a8/bf5ea8b89438f861a87b39967f869985.jpg' },
+          { type: 'image', content: 'https://i.pinimg.com/736x/5c/e8/06/5ce8067fc6b2fe84907fa1e8895e5b98.jpg' },
+           { type: 'image', content: 'https://i.pinimg.com/1200x/0a/45/43/0a45431f487931ef124306dd511217c0.jpg'}
+        ];
+        
+        const container = document.querySelector('.experience');
+        
+        items.forEach((item, index) => {
+          const orbitWrapper = document.createElement('div');
+          orbitWrapper.classList.add('orbit-item'); // Contenedor general de órbita
+
+          if (item.type === 'text') {
+            orbitWrapper.classList.add('text-content'); // Clase específica para estilos de fuente
+            orbitWrapper.textContent = item.content;
+          } else if (item.type === 'image') {
+            const img = document.createElement('img');
+            img.src = item.content; // La ruta directa
+            img.alt = 'Regalo Virtual Imagen';
+            orbitWrapper.appendChild(img);
+          }
+          
+          // Lógica de Órbita
+          const baseRadius = 180; 
+          const radiusIncrement = 35; 
+          const currentRadius = baseRadius + index * radiusIncrement;
+
+          const baseDuration = 18; 
+          const durationIncrement = 2; 
+          const currentDuration = baseDuration + index * durationIncrement;
+
+          // Aplica variables CSS
+          orbitWrapper.style.setProperty('--orbit-radius', `${currentRadius}px`);
+          orbitWrapper.style.setProperty('--orbit-duration', `${currentDuration}s`);
+          
+          // Desfase de la animación para distribuir los ítems
+          const delayMultiplier = (index % 3) + 1; // Usamos un multiplicador para que los ítems se separen más rápido
+          orbitWrapper.style.animationDelay = `${index * delayMultiplier}s`; 
+          
+          container.appendChild(orbitWrapper);
+        });
+      }
+      
+      window.onload = addOrbitingText; 
+    </script>
+  </body>
+</html>

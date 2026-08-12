@@ -1,0 +1,169 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Poppins, sans-serif;
+  font-size: 16px;
+}
+
+body,
+html {
+  overflow: hidden;
+  background: #000;
+}
+
+ul {
+  list-style-type: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: initial;
+}
+
+a {
+  text-decoration: none;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.search-button,
+.searchbox {
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  max-width: 768px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Contenedor principal de la experiencia (donde está el agujero negro) */
+.experience {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Contenedor de los elementos que orbitan */
+.content {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  
+  /* >>> AJUSTES CLAVE PARA EL 3D Y LA INCLINACIÓN DE LA VISTA <<< */
+  perspective: 900px; /* Profundidad de la escena 3D */
+  transform-style: preserve-3d; /* Habilita el espacio 3D para los hijos */
+  /* NUEVO: Aplicamos la inclinación general para que la galaxia se vea de lado */
+  transform: translate(-50%, -50%) rotateX(65deg); 
+}
+
+/* Estilos de la barra de búsqueda (si la tienes) - Manteniendo tu código anterior */
+.searchbox {
+  overflow: hidden;
+  width: 576px;
+  height: 56px;
+  background: rgba(60, 60, 60, 0.5);
+  backdrop-filter: blur(32px);
+  padding: 6px;
+  margin: 0 auto 32px;
+  border-radius: 100px;
+  transition: background-color 0.1s ease-in-out;
+}
+
+.searchbox:focus-within {
+  background: rgba(60, 60, 60, 0.7);
+}
+
+.searchbox-icon {
+  width: 44px;
+  height: 44px;
+  padding: 4px;
+}
+
+.search-button,
+.search-input {
+  line-height: 1;
+  height: 100%;
+  border: none;
+  outline: 0;
+  color: #fff;
+}
+
+.search-input {
+  width: 100%;
+  background: 0 0;
+  padding: 0 16px 0 2px;
+}
+
+.search-input::placeholder {
+  color: hsla(0, 0%, 100%, 0.8);
+}
+
+/* Estilos de los elementos orbitantes (Texto o Imagen) */
+.orbit-item {
+  /* Posicionamiento y Animación */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* Mantenemos el centrado inicial */
+  transform: translate(-50%, -50%); 
+  white-space: nowrap;
+  
+  /* Animación 3D */
+  animation: orbit-3d var(--orbit-duration) linear infinite;
+  
+  /* Permite que el elemento también se incline en 3D */
+  transform-style: preserve-3d;
+  
+  /* 💡 SOLUCIÓN CLAVE para el volteo: Oculta la cara trasera al girar */
+  backface-visibility: hidden; 
+  -webkit-backface-visibility: hidden; /* para compatibilidad */
+  
+  /* Asegura que el elemento base no tenga un tamaño excesivo si es texto */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilos para el TEXTO Orbitante */
+.orbit-item.text-content {
+  color: white;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+/* Estilos para IMÁGENES Orbitantes */
+.orbit-item img {
+  display: block;
+  /* Proporción de píxeles 'linda' - Ajusta la altura si es necesario */
+  height: 80px; 
+  width: auto;
+  object-fit: contain;
+  /* Añade un poco de brillo */
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+}
+
+/* ================================================= */
+/* ANIMACIÓN CLAVE PARA EL EFECTO 3D (Solo Giro)    */
+/* ================================================= */
+
+@keyframes orbit-3d {
+  from {
+    /* Solo giro (rotateY) y posicionamiento (translateX). El rotateX ya está en .content */
+    transform: translate(-50%, -50%) rotateY(0deg) translateX(var(--orbit-radius));
+  }
+  to {
+    /* Completa la órbita, girando 360 grados en el eje Y */
+    transform: translate(-50%, -50%) rotateY(360deg) translateX(var(--orbit-radius));
+  }
+}
